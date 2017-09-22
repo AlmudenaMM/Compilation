@@ -1,15 +1,14 @@
 
-# Descripción: 
-#### Procedimiento de selección automatizada de artículos (AISP) para el análisis de escala de Mokken
+# Description:
+#### Automated Item Selection Procedure (AISP) for Mokken Scale Analysis
 
-# Resultados:
-#### Devuelve un vector con tantos elementos como elementos, indicando a qué escala pertenece un elemento.
+# Results:
+#### Returns a vector with as many elements as elements, indicating to which scale an element belongs.
 
-# Notas:
-#### Cada escala debe consistir de al menos dos elementos, por lo tanto el número de escalas Mokken no puede exceder ncol (X) / 2.
-#### Los artículos con el mismo entero pertenecen a la misma escala de Mokken. Un cero indica un elemento no calculable. 
-#### Si n es el entero más grande, entonces se encontraron n escalas de Mokken.
-
+# Notes:
+#### Each scale must consist of at least two elements, so the number of Mokken scales can not exceed ncol (X) / 2.
+#### Items with the same integer belong to the same Mokken scale. A zero indicates a non-calculable element.
+#### If n is the largest integer, then n Mokken scales were found.
 
 setwd ("E:/Trabajos/Antonio Abellán 1406/Datos de trabajo SPSSS")
 
@@ -28,23 +27,23 @@ library(mokken)
 fix(Datos)
 AIVD<-Datos[,4:13]
 
-# Monotonía
+# Monotony
 mono<-check.monotonicity(AIVD)
 plot(mono)
 
-#No intersección
+# No intersection
 mat<-check.pmatrix(AIVD)
 plot(mat)
 
-#Fiabilidad
+# Reliability
 fiabilidad<-check.reliability(AIVD)
 fiabilidad
 
-#Errores de Guttman
+# Guttman's Errors
 Gut<-check.errors(AIVD)
 sum(Gut)
 
-#Mokken
+# Mokken
 aisp(AIVD)
 coefH(AIVD)
 
