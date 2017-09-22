@@ -1,0 +1,52 @@
+
+# Descripción: 
+#### Procedimiento de selección automatizada de artículos (AISP) para el análisis de escala de Mokken
+
+# Resultados:
+#### Devuelve un vector con tantos elementos como elementos, indicando a qué escala pertenece un elemento.
+
+# Notas:
+#### Cada escala debe consistir de al menos dos elementos, por lo tanto el número de escalas Mokken no puede exceder ncol (X) / 2.
+#### Los artículos con el mismo entero pertenecen a la misma escala de Mokken. Un cero indica un elemento no calculable. 
+#### Si n es el entero más grande, entonces se encontraron n escalas de Mokken.
+
+
+setwd ("E:/Trabajos/Antonio Abellán 1406/Datos de trabajo SPSSS")
+
+library(foreign, pos=4)
+Datos <- 
+  read.spss("DISCAS-2008-Mayores-Archivo de trabajo_AIVD.sav",
+   use.value.labels=FALSE, max.value.labels=Inf, to.data.frame=TRUE)
+
+
+attach(Datos)
+names(Datos)
+mean(AIVD7)
+
+library(mokken)
+
+fix(Datos)
+AIVD<-Datos[,4:13]
+
+# Monotonía
+mono<-check.monotonicity(AIVD)
+plot(mono)
+
+#No intersección
+mat<-check.pmatrix(AIVD)
+plot(mat)
+
+#Fiabilidad
+fiabilidad<-check.reliability(AIVD)
+fiabilidad
+
+#Errores de Guttman
+Gut<-check.errors(AIVD)
+sum(Gut)
+
+#Mokken
+aisp(AIVD)
+coefH(AIVD)
+
+
+
