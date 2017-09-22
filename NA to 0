@@ -1,0 +1,9 @@
+# Transformación de valores perdidos en ceros
+
+l<-length(Datos[,4])
+for (i in 4:12)
+	for (j in 1:l){
+		if (is.na(Datos[j,i])==TRUE){
+			Datos[j,i]<-0	
+		}
+	}
